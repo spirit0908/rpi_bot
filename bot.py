@@ -61,7 +61,7 @@ def handle(msg):
     elif command == '/time':
         bot.sendMessage(chat_id, str(datetime.datetime.now()))
     elif command == '/pizza':
-	pizza_num = random.randint(1,30)
+	pizza_num = random.randint(0, len(pizza_list)-1)
         bot.sendMessage(chat_id, pizza_list[pizza_num])
 
 
