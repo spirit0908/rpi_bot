@@ -1,11 +1,10 @@
-
 import time
 import random
 import datetime
 import telepot
 from telepot.loop import MessageLoop
-import os
 import sys 
+import subprocess
 
 """
 After **inserting token** in the source code, run it:
@@ -41,6 +40,7 @@ grimpette_choice = [
 def handle(msg):
     chat_id = msg['chat']['id']
     command = msg['text']
+    username= msg['from']['first_name']
 
     print 'Got command: %s' % command
     if command == '/roll':
@@ -54,10 +54,14 @@ def handle(msg):
         grimpette_num = random.randint(0, len(grimpette_choice)-1)
         bot.sendMessage(chat_id, grimpette_choice[grimpette_num])
     elif command == '/portail':
-        bot.sendMessage(chat_id, "calling...")
-        os.system("sh call_gate.sh")
-        bot.sendMessage(chat_id, "done. go go go!")
-
+        bot.sendMessage(chat_id, "Calling...")
+        subprocess.call('call_gate.sh', shell=True)
+        subprocess.call('gate_announce.sh ' + format(username) + ' & ', shell=True )
+        bot.sendMessage(chat_id, "Done. go go go!")
+    elif command == '/intercom':
+        bot.sendMessage(chat_id, "Openning door...")
+        subprocess.call('interphone.sh', shell=True)
+        bot.sendMessage(chat_id, "Done.")
 
 bot = telepot.Bot('*** API Token ***')
 
