@@ -60,7 +60,7 @@ def handle(msg):
         bot.sendMessage(chat_id, "Done. go go go!")
     elif command == '/intercom':
         bot.sendMessage(chat_id, "Openning door...")
-        subprocess.call('interphone.sh', shell=True)
+        subprocess.call('intercom.sh', shell=True)
         bot.sendMessage(chat_id, "Done.")
 
 bot = telepot.Bot('*** API Token ***')
